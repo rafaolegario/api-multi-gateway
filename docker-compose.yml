@@ -1,0 +1,54 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: api-multi-gateway-mysql
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-api_multi_gateway}
+      MYSQL_USER: ${DB_USER:-adonis}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-adonis123}
+    ports:
+      - '${DB_PORT:-3306}:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  gateways-mock:
+    image: matheusprotzen/gateways-mock
+    container_name: gateways-mock
+    restart: unless-stopped
+    ports:
+      - '3001:3001'
+      - '3002:3002'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-multi-gateway-app
+    restart: unless-stopped
+    profiles:
+      - app
+    ports:
+      - '${PORT:-3333}:3333'
+    env_file:
+      - .env
+    environment:
+      HOST: 0.0.0.0
+      DB_HOST: mysql
+      GATEWAY_MOCK_URL: http://gateways-mock
+    depends_on:
+      mysql:
+        condition: service_healthy
+      gateways-mock:
+        condition: service_started
+
+volumes:
+  mysql_data:
