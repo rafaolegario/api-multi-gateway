@@ -6,7 +6,7 @@ import { DbTokenProvider } from '#services/auth/db_token_provider'
 import { AuthenticateService } from '#services/auth/authenticate_service'
 
 export default class DependencyProvider {
-  constructor(protected app: ApplicationService) { }
+  constructor(protected app: ApplicationService) {}
 
   register() {
     this.app.container.singleton(UserRepository, () => {

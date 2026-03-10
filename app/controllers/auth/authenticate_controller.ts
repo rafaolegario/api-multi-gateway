@@ -5,7 +5,7 @@ import { loginValidator } from '#validators/user'
 
 @inject()
 export default class AuthenticateController {
-  constructor(private authenticateService: AuthenticateService) { }
+  constructor(private authenticateService: AuthenticateService) {}
 
   async login({ request, response }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
