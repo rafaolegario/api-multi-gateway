@@ -7,7 +7,7 @@ export class UserSchema extends BaseModel {
   static $columns = ['id', 'email', 'password', 'role', 'createdAt', 'updatedAt'] as const
   $columns = UserSchema.$columns
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
   @column()
   declare fullName: string | null
   @column()
@@ -26,7 +26,7 @@ export class GatewaySchema extends BaseModel {
   static $columns = ['id', 'name', 'isActive', 'priority', 'createdAt', 'updatedAt'] as const
   $columns = GatewaySchema.$columns
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
   @column()
   declare name: string
   @column()
@@ -43,7 +43,7 @@ export class ClientSchema extends BaseModel {
   static $columns = ['id', 'name', 'email', 'createdAt', 'updatedAt'] as const
   $columns = ClientSchema.$columns
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
   @column()
   declare name: string
   @column()
@@ -58,7 +58,7 @@ export class ProductSchema extends BaseModel {
   static $columns = ['id', 'name', 'amount', 'createdAt', 'updatedAt'] as const
   $columns = ProductSchema.$columns
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
   @column()
   declare name: string
   @column()
@@ -85,9 +85,9 @@ export class TransactionSchema extends BaseModel {
   @column({ isPrimary: true })
   declare id: string
   @column()
-  declare clientId: number
+  declare clientId: string
   @column()
-  declare gatewayId: number
+  declare gatewayId: string
   @column()
   declare externalId: string | null
   @column()
@@ -117,7 +117,7 @@ export class TransactionProductSchema extends BaseModel {
   @column()
   declare transactionId: string
   @column()
-  declare productId: number
+  declare productId: string
   @column()
   declare quantity: number
   @column.dateTime({ autoCreate: true })

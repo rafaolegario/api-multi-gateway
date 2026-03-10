@@ -6,16 +6,9 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.uuid('id').primary().notNullable()
+      table.uuid('client_id').notNullable().references('id').inTable('clients').onDelete('CASCADE')
       table
-        .integer('client_id')
-        .unsigned()
-        .notNullable()
-        .references('id')
-        .inTable('clients')
-        .onDelete('CASCADE')
-      table
-        .integer('gateway_id')
-        .unsigned()
+        .uuid('gateway_id')
         .notNullable()
         .references('id')
         .inTable('gateways')

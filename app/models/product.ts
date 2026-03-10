@@ -1,11 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, manyToMany } from '@adonisjs/lucid/orm'
+import { BaseModel, column, manyToMany, beforeCreate } from '@adonisjs/lucid/orm'
 import type { ManyToMany } from '@adonisjs/lucid/types/relations'
+import { randomUUID } from 'node:crypto'
 import Transaction from './transaction.js'
 
 export default class Product extends BaseModel {
+  static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
 
   @column()
   declare name: string
@@ -25,4 +28,11 @@ export default class Product extends BaseModel {
     pivotTimestamps: true,
   })
   declare transactions: ManyToMany<typeof Transaction>
+
+  @beforeCreate()
+  static assignUuid(product: Product) {
+    if (!product.id) {
+      product.id = randomUUID()
+    }
+  }
 }

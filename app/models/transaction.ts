@@ -14,10 +14,10 @@ export default class Transaction extends BaseModel {
   declare id: string
 
   @column()
-  declare clientId: number
+  declare clientId: string
 
   @column()
-  declare gatewayId: number
+  declare gatewayId: string
 
   @column()
   declare externalId: string | null

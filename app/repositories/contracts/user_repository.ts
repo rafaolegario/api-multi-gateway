@@ -4,7 +4,7 @@ import { type PaginatedResult, type PaginationParams } from '../../types/paginat
 
 export abstract class UserRepository {
   abstract findByEmail(email: string): Promise<User | null>
-  abstract findById(id: number): Promise<User | null>
+  abstract findById(id: string): Promise<User | null>
   abstract findAll(pagination: PaginationParams): Promise<PaginatedResult<User>>
   abstract update(user: User): Promise<User>
   abstract delete(id: string): Promise<void>

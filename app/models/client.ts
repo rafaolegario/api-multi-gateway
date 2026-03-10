@@ -1,11 +1,14 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, beforeCreate } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { randomUUID } from 'node:crypto'
 import Transaction from './transaction.js'
 
 export default class Client extends BaseModel {
+  static selfAssignPrimaryKey = true
+
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
 
   @column()
   declare name: string
@@ -21,4 +24,11 @@ export default class Client extends BaseModel {
 
   @hasMany(() => Transaction)
   declare transactions: HasMany<typeof Transaction>
+
+  @beforeCreate()
+  static assignUuid(client: Client) {
+    if (!client.id) {
+      client.id = randomUUID()
+    }
+  }
 }
