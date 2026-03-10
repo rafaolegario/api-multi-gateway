@@ -1,5 +1,6 @@
 import { Roles } from '#enums/roles'
 import User from '#models/user'
+import hash from '@adonisjs/core/services/hash'
 import { BaseSeeder } from '@adonisjs/lucid/seeders'
 
 export default class AdminUserSeeder extends BaseSeeder {
@@ -8,7 +9,7 @@ export default class AdminUserSeeder extends BaseSeeder {
     if (!exists) {
       await User.create({
         email: 'admin@betalent.com',
-        password: 'admin123',
+        password: await hash.make('admin123'),
         role: Roles.ADMIN,
       })
     }
