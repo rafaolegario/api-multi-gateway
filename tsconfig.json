@@ -4,6 +4,9 @@
     "rootDir": "./",
     "jsx": "react",
     "outDir": "./build",
-    "types": ["@adonisjs/core", "@adonisjs/auth"]
+    "types": [
+      "@adonisjs/core",
+      "@adonisjs/auth"
+    ]
   }
 }
