@@ -6,7 +6,7 @@ import { type PaginatedResult, type PaginationParams } from '../../types/index.t
 import { type GatewayChangePriorityDTO, type GatewayToggleIsActiveDTO } from './gateway_dto.ts'
 
 export class GatewayService {
-  constructor(private gatewayRepository: GatewayRepository) { }
+  constructor(private gatewayRepository: GatewayRepository) {}
 
   async listGateways(pagination: PaginationParams): Promise<PaginatedResult<Gateway>> {
     return await this.gatewayRepository.findAll(pagination)
