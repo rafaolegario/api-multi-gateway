@@ -20,4 +20,13 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // JWT
   JWT_SECRET: Env.schema.secret(),
+
+  // Payment Gateways
+  GATEWAY_1_URL: Env.schema.string(),
+  GATEWAY_1_EMAIL: Env.schema.string({ format: 'email' }),
+  GATEWAY_1_TOKEN: Env.schema.string(),
+
+  GATEWAY_2_URL: Env.schema.string(),
+  GATEWAY_2_AUTH_TOKEN: Env.schema.string(),
+  GATEWAY_2_AUTH_SECRET: Env.schema.string(),
 })
