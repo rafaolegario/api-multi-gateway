@@ -11,7 +11,7 @@ test.group('AuthenticateService', (group) => {
   let inMemoryUserRepository: InMemoryUserRepository
   let inMemoryTokenProvider: InMemoryTokenProvider
 
-  group.setup(() => {
+  group.each.setup(() => {
     inMemoryUserRepository = new InMemoryUserRepository()
     inMemoryTokenProvider = new InMemoryTokenProvider()
     authenticateService = new AuthenticateService(inMemoryUserRepository, inMemoryTokenProvider)
