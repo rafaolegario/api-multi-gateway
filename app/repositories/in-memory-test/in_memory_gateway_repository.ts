@@ -1,14 +1,10 @@
 import type Gateway from '#models/gateway'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
-import { GatewayRepository } from '../contracts/gateway_repository.ts'
+import { type GatewayRepository } from '../contracts/gateway_repository.ts'
 import { DateTime } from 'luxon'
 
-export class InMemoryGatewayRepository extends GatewayRepository {
+export class InMemoryGatewayRepository implements GatewayRepository {
   public gateways: Gateway[] = []
-
-  async findById(id: string): Promise<Gateway | null> {
-    return this.gateways.find((gateway) => gateway.id === id) ?? null
-  }
 
   async findAll(pagination: PaginationParams): Promise<PaginatedResult<Gateway>> {
     const { page, limit } = pagination

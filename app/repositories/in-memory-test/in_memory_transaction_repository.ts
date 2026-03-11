@@ -2,7 +2,7 @@ import { TransactionStatus } from '#enums/transaction_status'
 import type Transaction from '#models/transaction'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
 import {
-  TransactionRepository,
+  type TransactionRepository,
   type CreateTransactionData,
   type TransactionFilters,
 } from '../contracts/transaction_repository.ts'
@@ -18,7 +18,7 @@ export interface InMemoryTransactionProduct {
   updatedAt: DateTime | null
 }
 
-export class InMemoryTransactionRepository extends TransactionRepository {
+export class InMemoryTransactionRepository implements TransactionRepository {
   public transactions: Transaction[] = []
   public transactionProducts: InMemoryTransactionProduct[] = []
 

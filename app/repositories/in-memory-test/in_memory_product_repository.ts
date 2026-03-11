@@ -1,10 +1,10 @@
 import type Product from '#models/product'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
-import { ProductRepository } from '../contracts/product_repository.ts'
+import { type ProductRepository } from '../contracts/product_repository.ts'
 import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
 
-export class InMemoryProductRepository extends ProductRepository {
+export class InMemoryProductRepository implements ProductRepository {
   public products: Product[] = []
 
   async findById(id: string): Promise<Product | null> {

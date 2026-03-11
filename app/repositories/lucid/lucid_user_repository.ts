@@ -1,9 +1,9 @@
 import { type Roles } from '#enums/roles'
 import User from '#models/user'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
-import { UserRepository } from '../contracts/user_repository.ts'
+import { type UserRepository } from '../contracts/user_repository.ts'
 
-export class LucidUserRepository extends UserRepository {
+export class LucidUserRepository implements UserRepository {
   async findByEmail(email: string): Promise<User | null> {
     return User.query().where('email', email).first()
   }

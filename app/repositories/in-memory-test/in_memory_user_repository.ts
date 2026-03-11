@@ -1,11 +1,11 @@
 import { type Roles } from '#enums/roles'
 import type User from '#models/user'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
-import { UserRepository } from '../contracts/user_repository.ts'
+import { type UserRepository } from '../contracts/user_repository.ts'
 import { randomUUID } from 'node:crypto'
 import { DateTime } from 'luxon'
 
-export class InMemoryUserRepository extends UserRepository {
+export class InMemoryUserRepository implements UserRepository {
   public users: User[] = []
 
   async findByEmail(email: string): Promise<User | null> {

@@ -1,10 +1,10 @@
 import type Client from '#models/client'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
-import { ClientRepository } from '../contracts/client_repository.ts'
+import { type ClientRepository } from '../contracts/client_repository.ts'
 import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
 
-export class InMemoryClientRepository extends ClientRepository {
+export class InMemoryClientRepository implements ClientRepository {
   public clients: Client[] = []
 
   async findById(id: string): Promise<Client | null> {
