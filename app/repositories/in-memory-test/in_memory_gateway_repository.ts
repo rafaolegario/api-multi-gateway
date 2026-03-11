@@ -6,6 +6,10 @@ import { DateTime } from 'luxon'
 export class InMemoryGatewayRepository implements GatewayRepository {
   public gateways: Gateway[] = []
 
+  async findById(id: string): Promise<Gateway | null> {
+    return this.gateways.find((g) => g.id === id) || null
+  }
+
   async findAll(pagination: PaginationParams): Promise<PaginatedResult<Gateway>> {
     const { page, limit } = pagination
     const start = (page - 1) * limit

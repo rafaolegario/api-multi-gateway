@@ -107,33 +107,12 @@ export class InMemoryTransactionRepository implements TransactionRepository {
     return transaction
   }
 
-  findProductsByTransactionId(transactionId: string) {
-    return this.transactionProducts.filter((tp) => tp.transactionId === transactionId)
-  }
-
-  async updateStatus(
-    id: string,
-    status: TransactionStatus,
-    externalId?: string
-  ): Promise<Transaction> {
-    const transaction = this.transactions.find((t) => t.id === id)
-    if (!transaction) {
-      throw new Error(`Transaction with id ${id} not found`)
-    }
-
-    transaction.status = status
-    if (externalId) {
-      transaction.externalId = externalId
-    }
-    transaction.updatedAt = DateTime.now()
-
-    return transaction
-  }
-
-  async delete(id: string): Promise<void> {
-    const index = this.transactions.findIndex((t) => t.id === id)
+  async update(transaction: Transaction): Promise<Transaction> {
+    const index = this.transactions.findIndex((t) => t.id === transaction.id)
     if (index !== -1) {
-      this.transactions.splice(index, 1)
+      transaction.updatedAt = DateTime.now()
+      this.transactions[index] = transaction
     }
+    return transaction
   }
 }
