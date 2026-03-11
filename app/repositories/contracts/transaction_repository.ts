@@ -7,7 +7,9 @@ export interface CreateTransactionData {
   gatewayId: string
   amount: number
   cardLastNumbers?: string
-  products: Array<{ productId: string; quantity: number }>
+  externalId?: string
+  reason?: string
+  products: Array<{ id: string; quantity: number }>
 }
 
 export interface TransactionFilters {

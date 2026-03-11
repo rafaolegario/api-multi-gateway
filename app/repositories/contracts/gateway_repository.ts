@@ -4,6 +4,6 @@ import { type PaginationParams, type PaginatedResult } from '../../types/paginat
 export abstract class GatewayRepository {
   abstract findById(id: string): Promise<Gateway | null>
   abstract findAll(pagination: PaginationParams): Promise<PaginatedResult<Gateway>>
-  abstract findByPriorityAndIsActive(priority: number, isActive: boolean): Promise<Gateway[]>
+  abstract findOrdenedByPriorityAndIsActive(): Promise<Gateway[]>
   abstract update(gateway: Gateway): Promise<Gateway>
 }
