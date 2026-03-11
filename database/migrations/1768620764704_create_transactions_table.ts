@@ -15,8 +15,9 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
       table.string('external_id').nullable()
       table.string('status').notNullable().defaultTo('pending')
-      table.decimal('amount', 12, 2).notNullable()
+      table.integer('amount', 12).notNullable()
       table.string('card_last_numbers', 4).nullable()
+      table.string('reason', 255).nullable()
 
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
