@@ -382,7 +382,7 @@ test.group('PurchaseService', (group) => {
     const createdTransaction = inMemoryTransactionRepository.transactions[0]
     assert.equal(createdTransaction.clientId, createdClient.id)
     assert.equal(createdTransaction.gatewayId, gateway.id)
-    assert.equal(createdTransaction.amount, 20000) // 100 * 2 * 100 (cents)
+    assert.equal(createdTransaction.amount, 200)
     assert.equal(createdTransaction.cardLastNumbers, cardNumber.slice(-4))
   })
 })

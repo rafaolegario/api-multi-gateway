@@ -1,3 +1,4 @@
+import { TransactionStatus } from '#enums/transaction_status'
 import type Gateway from '#models/gateway'
 import type Product from '#models/product'
 import { type ClientRepository } from '#repositories/contracts/client_repository'
@@ -6,7 +7,6 @@ import { type ProductRepository, type TransactionRepository } from '#repositorie
 import { NotAllowedException } from '#services/errors/not_allowed_exception'
 import { ResourceNotFoundException } from '#services/errors/resource_not_found_exception'
 import { UnavailabilityServiceException } from '#services/errors/unavaibility_service_exception'
-import { toCents } from '#services/utils/transform_currency'
 import { type GatewayRegistry } from '../../payment_gateways/gateway_registry.ts'
 import {
   type PurchaseResponseDTO,
@@ -47,11 +47,12 @@ export class PurchaseService {
       cardLastNumbers: cardNumber.slice(-4),
       externalId: transactionId ?? undefined,
       reason: errorMessage ?? undefined,
+      status: success ? TransactionStatus.SUCCESSFUL : TransactionStatus.FAILED,
       products,
     })
 
     const ERROR_MESSAGE = 'Payment process failed, please try again later'
-    const message = success ? 'Purchase completed successfully' : (errorMessage ?? ERROR_MESSAGE)
+    const message = success ? 'Purchase completed successfully' : ERROR_MESSAGE
 
     return { success, message }
   }
@@ -64,14 +65,15 @@ export class PurchaseService {
     for (const gateway of activeGateways) {
       try {
         const paymentGateway = this.gatewayRegistry.get(gateway.name)
+        if (paymentGateway) {
+          const charge = await paymentGateway.charge(data)
 
-        const charge = await paymentGateway.charge(data)
+          if (charge.success) {
+            return { ...charge, gatewayId: gateway.id }
+          }
 
-        if (charge.success) {
-          return { ...charge, gatewayId: gateway.id }
+          lastError = charge.errorMessage ?? lastError
         }
-
-        lastError = charge.errorMessage ?? lastError
       } catch (error) {
         lastError = error instanceof Error ? error.message : 'Gateway communication failed'
       }
@@ -119,7 +121,7 @@ export class PurchaseService {
 
     const productIds = productsReq.map((p) => p.id)
     const products = await this.verifyIfProductExists(productIds)
-    return toCents(this.calculateProductAmount(productsReq, products))
+    return this.calculateProductAmount(productsReq, products)
   }
 
   private calculateProductAmount(
