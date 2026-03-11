@@ -1,5 +1,7 @@
 import type Gateway from '#models/gateway'
 import { type GatewayRepository } from '#repositories/contracts/gateway_repository'
+import { NotAllowedException } from '#services/errors/not_allowed_exception'
+import { ResourceNotFoundException } from '#services/errors/resource_not_found_exception'
 import { type PaginatedResult, type PaginationParams } from '../../types/index.ts'
 import { type GatewayChangePriorityDTO, type GatewayToggleIsActiveDTO } from './gateway_dto.ts'
 
@@ -16,7 +18,7 @@ export class GatewayService {
     const gateway = await this.gatewayRepository.findById(gatewayId)
 
     if (!gateway) {
-      throw new Error(`Gateway with ID ${gatewayId} not found`)
+      throw new ResourceNotFoundException(`Gateway with ID ${gatewayId} not found`)
     }
 
     if (gateway.isActive !== isActive) {
@@ -33,17 +35,18 @@ export class GatewayService {
     const gateway = await this.gatewayRepository.findById(gatewayId)
 
     if (!gateway) {
-      throw new Error(`Gateway with ID ${gatewayId} not found`)
+      throw new ResourceNotFoundException(`Gateway with ID ${gatewayId} not found`)
     }
 
     if (priority <= 0) {
-      throw new Error('Priority cannot be zero or negative')
+      throw new NotAllowedException('Priority cannot be zero or negative', { status: 422 })
     }
 
     if (gateway.priority !== priority) {
       gateway.priority = priority
       return await this.gatewayRepository.update(gateway)
     }
+
     return gateway
   }
 }

@@ -2,6 +2,8 @@ import { test } from '@japa/runner'
 import { GatewayService } from '#services/gateways/gateway_service'
 import { InMemoryGatewayRepository } from '../../app/repositories/in-memory-test/in_memory_gateway_repository.ts'
 import { MakeGateway } from '#tests/factories/make_gateway'
+import { ResourceNotFoundException } from '#services/errors/resource_not_found_exception'
+import { NotAllowedException } from '#services/errors/not_allowed_exception'
 
 test.group('GatewayService', (group) => {
   let gatewayService: GatewayService
@@ -88,7 +90,7 @@ test.group('GatewayService', (group) => {
           gatewayId: 'non-existent-id',
           isActive: true,
         }),
-      Error
+      ResourceNotFoundException
     )
   })
 
@@ -126,7 +128,7 @@ test.group('GatewayService', (group) => {
           gatewayId: 'non-existent-id',
           priority: 5,
         }),
-      Error
+      ResourceNotFoundException
     )
   })
 
@@ -141,7 +143,7 @@ test.group('GatewayService', (group) => {
           gatewayId: gateway.id,
           priority: 0,
         }),
-      Error
+      NotAllowedException
     )
   })
 
@@ -156,7 +158,7 @@ test.group('GatewayService', (group) => {
           gatewayId: gateway.id,
           priority: -1,
         }),
-      Error
+      NotAllowedException
     )
   })
 })
