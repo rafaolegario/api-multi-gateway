@@ -7,8 +7,4 @@ export class DbTokenProvider extends TokenProvider {
     const token = await User.accessTokens.create(user)
     return token.value!.release()
   }
-
-  async delete(user: UserModel, tokenId: string): Promise<void> {
-    await User.accessTokens.delete(user, tokenId)
-  }
 }
