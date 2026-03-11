@@ -14,7 +14,14 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
-    const err = error as Exception
+    const err = error as Exception & { messages?: any }
+
+    if (err.messages) {
+      return ctx.response.status(err.status ?? 422).json({
+        message: 'Validation failed',
+        errors: err.messages,
+      })
+    }
 
     return ctx.response.status(err.status ?? 500).json({
       message: err.message ?? 'Internal server error',
