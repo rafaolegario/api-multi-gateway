@@ -31,6 +31,9 @@ export default class Transaction extends BaseModel {
   @column()
   declare cardLastNumbers: string | null
 
+  @column()
+  declare reason: string | null
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
