@@ -9,6 +9,7 @@ export interface CreateTransactionData {
   cardLastNumbers?: string
   externalId?: string
   reason?: string
+  status: TransactionStatus
   products: Array<{ id: string; quantity: number }>
 }
 
@@ -30,11 +31,6 @@ export abstract class TransactionRepository {
     clientId: string,
     pagination: PaginationParams
   ): Promise<PaginatedResult<Transaction>>
+  abstract update(transaction: Transaction): Promise<Transaction>
   abstract create(data: CreateTransactionData): Promise<Transaction>
-  abstract updateStatus(
-    id: string,
-    status: TransactionStatus,
-    externalId?: string
-  ): Promise<Transaction>
-  abstract delete(id: string): Promise<void>
 }
