@@ -159,7 +159,7 @@ export class PurchaseService {
     return products
   }
 
-  async findOrCreateClient(email: string, name: string) {
+  private async findOrCreateClient(email: string, name: string) {
     let client = await this.clientRepository.findByEmail(email)
 
     if (!client) {
