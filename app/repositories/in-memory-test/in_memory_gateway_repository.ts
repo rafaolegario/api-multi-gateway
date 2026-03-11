@@ -27,10 +27,10 @@ export class InMemoryGatewayRepository extends GatewayRepository {
     }
   }
 
-  async findByPriorityAndIsActive(priority: number, isActive: boolean): Promise<Gateway[]> {
-    return this.gateways.filter(
-      (gateway) => gateway.priority === priority && gateway.isActive === isActive
-    )
+  async findOrdenedByPriorityAndIsActive(): Promise<Gateway[]> {
+    return this.gateways
+      .filter((gateway) => gateway.isActive)
+      .sort((a, b) => a.priority - b.priority)
   }
 
   async update(gateway: Gateway): Promise<Gateway> {
