@@ -12,8 +12,8 @@ export class GatewayService {
     return await this.gatewayRepository.findAll(pagination)
   }
 
-  async toggleGatewayIsActive(data: GatewayToggleIsActiveDTO): Promise<Gateway> {
-    const { gatewayId, isActive } = data
+  async toggleIsActive(data: GatewayToggleIsActiveDTO): Promise<Gateway> {
+    const { gatewayId } = data
 
     const gateway = await this.gatewayRepository.findById(gatewayId)
 
@@ -21,15 +21,13 @@ export class GatewayService {
       throw new ResourceNotFoundException(`Gateway with ID ${gatewayId} not found`)
     }
 
-    if (gateway.isActive !== isActive) {
-      gateway.isActive = isActive
-      return await this.gatewayRepository.update(gateway)
-    }
+    gateway.isActive = !gateway.isActive
+    await this.gatewayRepository.update(gateway)
 
     return gateway
   }
 
-  async changeGatewayPriority(data: GatewayChangePriorityDTO): Promise<Gateway> {
+  async changePriority(data: GatewayChangePriorityDTO): Promise<Gateway> {
     const { gatewayId, priority } = data
 
     const gateway = await this.gatewayRepository.findById(gatewayId)
@@ -43,10 +41,21 @@ export class GatewayService {
     }
 
     if (gateway.priority !== priority) {
+      await this.verifyPriorityConflict(priority, gatewayId)
       gateway.priority = priority
       return await this.gatewayRepository.update(gateway)
     }
 
     return gateway
+  }
+
+  private async verifyPriorityConflict(priority: number, excludeGatewayId?: string): Promise<void> {
+    const existingGateway = await this.gatewayRepository.findByPriority(priority)
+
+    if (existingGateway && existingGateway.id !== excludeGatewayId) {
+      throw new NotAllowedException(`Another gateway already has priority ${priority}`, {
+        status: 422,
+      })
+    }
   }
 }
