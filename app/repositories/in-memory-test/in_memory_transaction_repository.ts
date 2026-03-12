@@ -5,6 +5,7 @@ import {
   type TransactionRepository,
   type CreateTransactionData,
   type TransactionFilters,
+  type AllTrasactions,
 } from '../contracts/transaction_repository.ts'
 import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
@@ -29,7 +30,7 @@ export class InMemoryTransactionRepository implements TransactionRepository {
   async findAll(
     pagination: PaginationParams,
     filters?: TransactionFilters
-  ): Promise<PaginatedResult<Transaction>> {
+  ): Promise<PaginatedResult<AllTrasactions>> {
     let filtered = [...this.transactions]
 
     if (filters) {
@@ -42,18 +43,19 @@ export class InMemoryTransactionRepository implements TransactionRepository {
       if (filters.status) {
         filtered = filtered.filter((t) => t.status === filters.status)
       }
-      if (filters.startDate) {
-        filtered = filtered.filter((t) => t.createdAt.toJSDate() >= filters.startDate!)
-      }
-      if (filters.endDate) {
-        filtered = filtered.filter((t) => t.createdAt.toJSDate() <= filters.endDate!)
-      }
     }
 
     const { page, limit } = pagination
     const start = (page - 1) * limit
     const end = start + limit
-    const data = filtered.slice(start, end)
+    const data = filtered.slice(start, end).map((t) => ({
+      id: t.id,
+      clientId: t.clientId,
+      status: t.status,
+      amount: t.amount,
+      createdAt: t.createdAt.toJSDate(),
+      updatedAt: t.updatedAt?.toJSDate() ?? null,
+    }))
     const total = filtered.length
     const lastPage = Math.ceil(total / limit)
 
@@ -64,13 +66,6 @@ export class InMemoryTransactionRepository implements TransactionRepository {
       limit,
       lastPage,
     }
-  }
-
-  async findByClient(
-    clientId: string,
-    pagination: PaginationParams
-  ): Promise<PaginatedResult<Transaction>> {
-    return this.findAll(pagination, { clientId })
   }
 
   async create(data: CreateTransactionData): Promise<Transaction> {

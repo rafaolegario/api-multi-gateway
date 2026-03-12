@@ -4,6 +4,7 @@ import {
   type TransactionRepository,
   type CreateTransactionData,
   type TransactionFilters,
+  type AllTrasactions,
 } from '#repositories/contracts/transaction_repository'
 import { type PaginatedResult, type PaginationParams } from '../../types/index.ts'
 
@@ -15,7 +16,7 @@ export class LucidTransactionRepository implements TransactionRepository {
   async findAll(
     pagination: PaginationParams,
     filters?: TransactionFilters
-  ): Promise<PaginatedResult<Transaction>> {
+  ): Promise<PaginatedResult<AllTrasactions>> {
     let query = Transaction.query()
 
     if (filters) {
@@ -27,16 +28,20 @@ export class LucidTransactionRepository implements TransactionRepository {
       } else if (filters.status) {
         query = query.where('status', filters.status)
       }
-      if (filters.startDate) {
-        query = query.where('createdAt', '>=', filters.startDate)
-      }
-      if (filters.endDate) {
-        query = query.where('createdAt', '<=', filters.endDate)
-      }
     }
 
-    const result = await query.paginate(pagination.page, pagination.limit)
-    const data = result.all()
+    const result = await query
+      .select('id', 'clientId', 'status', 'amount', 'createdAt', 'updatedAt')
+      .orderBy('createdAt', 'desc')
+      .paginate(pagination.page, pagination.limit)
+    const data = result.all().map((t) => ({
+      id: t.id,
+      clientId: t.clientId,
+      status: t.status,
+      amount: t.amount,
+      createdAt: t.createdAt.toJSDate(),
+      updatedAt: t.updatedAt?.toJSDate() ?? null,
+    }))
 
     return {
       data,
@@ -45,13 +50,6 @@ export class LucidTransactionRepository implements TransactionRepository {
       limit: result.perPage,
       lastPage: result.lastPage,
     }
-  }
-
-  async findByClient(
-    clientId: string,
-    pagination: PaginationParams
-  ): Promise<PaginatedResult<Transaction>> {
-    return this.findAll(pagination, { clientId })
   }
 
   async update(transaction: Transaction): Promise<Transaction> {
