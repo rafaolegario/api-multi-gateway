@@ -7,11 +7,11 @@ import { loginValidator } from '#validators/user'
 export default class AuthenticateController {
   constructor(private authenticateService: AuthenticateService) {}
 
-  async login({ request, response }: HttpContext) {
+  async login({ request }: HttpContext) {
     const { email, password } = await request.validateUsing(loginValidator)
 
     const token = await this.authenticateService.login({ email, password })
 
-    return response.ok({ token })
+    return { token }
   }
 }
