@@ -9,7 +9,7 @@ server.use([
   () => import('@adonisjs/cors/cors_middleware'),
 ])
 
-router.named({
+export const middleware = router.named({
   auth: () => import('#middleware/auth_middleware'),
   role: () => import('#middleware/authorization_middleware'),
 })
