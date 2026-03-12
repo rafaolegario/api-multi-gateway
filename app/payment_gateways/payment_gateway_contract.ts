@@ -6,6 +6,10 @@ export interface ProcessPaymentParams {
   cvv: string
 }
 
+export interface ProcessRefundParams {
+  transactionId: string
+}
+
 export interface ProcessPaymentResponse {
   success: boolean
   transactionId?: string
@@ -15,5 +19,5 @@ export interface ProcessPaymentResponse {
 export abstract class PaymentGateway {
   abstract charge(params: ProcessPaymentParams): Promise<ProcessPaymentResponse>
 
-  abstract refund(transactionId: string, amount: number): Promise<ProcessPaymentResponse>
+  abstract refund(params: ProcessRefundParams): Promise<ProcessPaymentResponse>
 }
