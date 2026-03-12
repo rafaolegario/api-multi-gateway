@@ -25,6 +25,6 @@ export default class PurchaseController {
       })
     }
 
-    return response.ok({ message: result.message })
+    return response.created({ message: result.message })
   }
 }
