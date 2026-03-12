@@ -22,7 +22,7 @@ export class LucidGatewayRepository implements GatewayRepository {
   }
 
   async findOrdenedByPriorityAndIsActive(): Promise<Gateway[]> {
-    return await Gateway.query().where('isActive', true).orderBy('priority', 'desc')
+    return await Gateway.query().where('isActive', true).orderBy('priority', 'asc')
   }
 
   async update(gateway: Gateway): Promise<Gateway> {
