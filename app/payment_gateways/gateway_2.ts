@@ -22,17 +22,22 @@ const headers = {
 
 export class Gateway2 implements PaymentGateway {
   async charge(params: ProcessPaymentParams): Promise<ProcessPaymentResponse> {
+    const body = {
+      valor: params.amount,
+      numeroCartao: params.cardNumber,
+      cvv: params.cvv,
+      nome: params.name,
+      email: params.email,
+    }
+
     const response = await fetch(`${URL}/transacoes`, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({
-        valor: params.amount,
-        numeroCartao: params.cardNumber,
-        cvv: params.cvv,
-        nome: params.name,
-        email: params.email,
-      }),
+      body: JSON.stringify(body),
     })
+
+    console.log('Payment using gateway 2')
+
     const data = (await response.json()) as ApiTransactionResponse
 
     if (data.erros && data.erros.length > 0) {
