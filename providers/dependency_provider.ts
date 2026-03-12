@@ -14,6 +14,7 @@ import { ProductRepository } from '#repositories/contracts/product_repository'
 import { LucidProductRepository } from '#repositories/lucid/lucid_product_repository'
 import { PurchaseService } from '#services/purchase/purchase_service'
 import { GatewayRegistry } from '../app/payment_gateways/gateway_registry.ts'
+import { GatewayService } from '#services/gateways/gateway_service'
 
 //Para fins do teste tecnico injetei tudo aqui, mas o ideal seria criar um provider específico para cada serviço para manter a organização e escalabilidade do projeto.
 export default class DependencyProvider {
@@ -46,6 +47,12 @@ export default class DependencyProvider {
 
     this.app.container.singleton(GatewayRegistry, () => {
       return new GatewayRegistry()
+    })
+
+    this.app.container.singleton(GatewayService, async () => {
+      const gatewayRepository = await this.app.container.make(GatewayRepository)
+
+      return new GatewayService(gatewayRepository)
     })
 
     this.app.container.singleton(PurchaseService, async () => {
