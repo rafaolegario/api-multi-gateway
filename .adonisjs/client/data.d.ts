@@ -5,6 +5,16 @@
 
 /// <reference path="./manifest.d.ts" />
 import type { InferData, InferVariants } from '@adonisjs/core/types/transformers'
+import type GatewaysTransformTransformer from '#transformers/gateways_transform'
+import type TransactionTransformTransformer from '#transformers/transaction_transform'
 
 export namespace Data {
+  export type GatewaysTransform = InferData<GatewaysTransformTransformer>
+  export namespace GatewaysTransform {
+    export type Variants = InferVariants<GatewaysTransformTransformer>
+  }
+  export type TransactionTransform = InferData<TransactionTransformTransformer>
+  export namespace TransactionTransform {
+    export type Variants = InferVariants<TransactionTransformTransformer>
+  }
 }

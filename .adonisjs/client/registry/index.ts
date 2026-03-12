@@ -12,6 +12,48 @@ const routes = {
     tokens: [{"old":"/auth/login","type":0,"val":"auth","end":""},{"old":"/auth/login","type":0,"val":"login","end":""}],
     types: placeholder as Registry['authenticate.login']['types'],
   },
+  'purchase.purchase': {
+    methods: ["POST"],
+    pattern: '/purchase',
+    tokens: [{"old":"/purchase","type":0,"val":"purchase","end":""}],
+    types: placeholder as Registry['purchase.purchase']['types'],
+  },
+  'gateways.list_gateways': {
+    methods: ["GET","HEAD"],
+    pattern: '/gateways',
+    tokens: [{"old":"/gateways","type":0,"val":"gateways","end":""}],
+    types: placeholder as Registry['gateways.list_gateways']['types'],
+  },
+  'gateways.toggle_is_active': {
+    methods: ["PATCH"],
+    pattern: '/gateways/:id/toggle',
+    tokens: [{"old":"/gateways/:id/toggle","type":0,"val":"gateways","end":""},{"old":"/gateways/:id/toggle","type":1,"val":"id","end":""},{"old":"/gateways/:id/toggle","type":0,"val":"toggle","end":""}],
+    types: placeholder as Registry['gateways.toggle_is_active']['types'],
+  },
+  'gateways.change_priority': {
+    methods: ["PATCH"],
+    pattern: '/gateways/:id/change-priority',
+    tokens: [{"old":"/gateways/:id/change-priority","type":0,"val":"gateways","end":""},{"old":"/gateways/:id/change-priority","type":1,"val":"id","end":""},{"old":"/gateways/:id/change-priority","type":0,"val":"change-priority","end":""}],
+    types: placeholder as Registry['gateways.change_priority']['types'],
+  },
+  'transactions.list_transactions': {
+    methods: ["GET","HEAD"],
+    pattern: '/transactions',
+    tokens: [{"old":"/transactions","type":0,"val":"transactions","end":""}],
+    types: placeholder as Registry['transactions.list_transactions']['types'],
+  },
+  'transactions.get_transaction': {
+    methods: ["GET","HEAD"],
+    pattern: '/transactions/:id',
+    tokens: [{"old":"/transactions/:id","type":0,"val":"transactions","end":""},{"old":"/transactions/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['transactions.get_transaction']['types'],
+  },
+  'transactions.refund_transaction': {
+    methods: ["POST"],
+    pattern: '/transactions/:id/refund',
+    tokens: [{"old":"/transactions/:id/refund","type":0,"val":"transactions","end":""},{"old":"/transactions/:id/refund","type":1,"val":"id","end":""},{"old":"/transactions/:id/refund","type":0,"val":"refund","end":""}],
+    types: placeholder as Registry['transactions.refund_transaction']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

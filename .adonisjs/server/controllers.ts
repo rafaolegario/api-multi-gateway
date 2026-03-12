@@ -7,4 +7,13 @@ export const controllers = {
   auth: {
     Authenticate: () => import('#controllers/auth/authenticate_controller'),
   },
+  gateways: {
+    Gateways: () => import('#controllers/gateways/gateways_controller'),
+  },
+  purchase: {
+    Purchase: () => import('#controllers/purchase/purchase_controller'),
+  },
+  transactions: {
+    Transactions: () => import('#controllers/transactions/transactions_controller'),
+  },
 }
