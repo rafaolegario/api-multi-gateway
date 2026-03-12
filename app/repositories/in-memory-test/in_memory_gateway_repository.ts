@@ -33,6 +33,10 @@ export class InMemoryGatewayRepository implements GatewayRepository {
       .sort((a, b) => a.priority - b.priority)
   }
 
+  async findByPriority(priority: number): Promise<Gateway | null> {
+    return this.gateways.find((g) => g.priority === priority) || null
+  }
+
   async update(gateway: Gateway): Promise<Gateway> {
     const index = this.gateways.findIndex((g) => g.id === gateway.id)
     if (index !== -1) {

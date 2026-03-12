@@ -25,6 +25,10 @@ export class LucidGatewayRepository implements GatewayRepository {
     return await Gateway.query().where('isActive', true).orderBy('priority', 'asc')
   }
 
+  async findByPriority(priority: number): Promise<Gateway | null> {
+    return await Gateway.query().where('priority', priority).first()
+  }
+
   async update(gateway: Gateway): Promise<Gateway> {
     await gateway.save()
     return gateway
