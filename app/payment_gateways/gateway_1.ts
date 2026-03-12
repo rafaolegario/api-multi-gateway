@@ -3,11 +3,12 @@ import {
   type ProcessPaymentResponse,
   type PaymentGateway,
   type ProcessPaymentParams,
+  type ProcessRefundParams,
 } from './payment_gateway_contract.ts'
 
 interface ApiTransactionResponse {
   id?: string
-  erros?: Array<{ message: string }>
+  error?: string
 }
 
 const URL = env.get('GATEWAY_1_URL')
@@ -50,20 +51,35 @@ export class Gateway1 implements PaymentGateway {
       headers: headers,
       body: JSON.stringify(body),
     })
-
     const data = (await response.json()) as ApiTransactionResponse
-
-    if (data.erros && data.erros.length > 0) {
+    if (data.error || !response.ok) {
       return {
         success: false,
-        errorMessage: data.erros?.[0]?.message ?? 'Payment declined',
+        errorMessage: data.error ?? 'Payment declined',
       }
     }
 
     return { success: true, transactionId: data.id }
   }
 
-  async refund(transactionId: string, amount: number): Promise<ProcessPaymentResponse> {
-    throw new Error('Refund not implemented for Gateway 1')
+  async refund(params: ProcessRefundParams): Promise<ProcessPaymentResponse> {
+    const id = params.transactionId
+
+    await this.login()
+
+    const response = await fetch(`${URL}/transactions/${id}/charge_back`, {
+      method: 'POST',
+      headers: headers,
+    })
+
+    const data = (await response.json()) as ApiTransactionResponse
+
+    if (data.error || !response.ok) {
+      return {
+        success: false,
+      }
+    }
+
+    return { success: true }
   }
 }
