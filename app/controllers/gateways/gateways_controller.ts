@@ -23,6 +23,12 @@ export default class GatewaysController {
 
     return {
       gateways: GatewaysTransformer.collection(paginatedResult.data),
+      pagination: {
+        total: paginatedResult.total,
+        page: paginatedResult.page,
+        limit: paginatedResult.limit,
+        lastPage: paginatedResult.lastPage,
+      },
     }
   }
 
