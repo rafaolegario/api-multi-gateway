@@ -48,9 +48,8 @@ test.group('GatewayService', (group) => {
 
     inMemoryGatewayRepository.gateways.push(gateway)
 
-    const updatedGateway = await gatewayService.toggleGatewayIsActive({
+    const updatedGateway = await gatewayService.toggleIsActive({
       gatewayId: gateway.id,
-      isActive: true,
     })
 
     assert.equal(updatedGateway.isActive, true)
@@ -61,34 +60,18 @@ test.group('GatewayService', (group) => {
 
     inMemoryGatewayRepository.gateways.push(gateway)
 
-    const updatedGateway = await gatewayService.toggleGatewayIsActive({
+    const updatedGateway = await gatewayService.toggleIsActive({
       gatewayId: gateway.id,
-      isActive: false,
     })
 
     assert.equal(updatedGateway.isActive, false)
   })
 
-  test('should not update gateway if isActive is already the same', async ({ assert }) => {
-    const gateway = MakeGateway({ isActive: true })
-
-    inMemoryGatewayRepository.gateways.push(gateway)
-
-    const updatedGateway = await gatewayService.toggleGatewayIsActive({
-      gatewayId: gateway.id,
-      isActive: true,
-    })
-
-    assert.equal(updatedGateway.isActive, true)
-    assert.isNull(updatedGateway.updatedAt)
-  })
-
   test('should throw error when toggling isActive of non-existent gateway', async ({ assert }) => {
     await assert.rejects(
       () =>
-        gatewayService.toggleGatewayIsActive({
+        gatewayService.toggleIsActive({
           gatewayId: 'non-existent-id',
-          isActive: true,
         }),
       ResourceNotFoundException
     )
@@ -99,7 +82,7 @@ test.group('GatewayService', (group) => {
 
     inMemoryGatewayRepository.gateways.push(gateway)
 
-    const updatedGateway = await gatewayService.changeGatewayPriority({
+    const updatedGateway = await gatewayService.changePriority({
       gatewayId: gateway.id,
       priority: 2,
     })
@@ -112,7 +95,7 @@ test.group('GatewayService', (group) => {
 
     inMemoryGatewayRepository.gateways.push(gateway)
 
-    const updatedGateway = await gatewayService.changeGatewayPriority({
+    const updatedGateway = await gatewayService.changePriority({
       gatewayId: gateway.id,
       priority: 3,
     })
@@ -124,7 +107,7 @@ test.group('GatewayService', (group) => {
   test('should throw error when changing priority of non-existent gateway', async ({ assert }) => {
     await assert.rejects(
       () =>
-        gatewayService.changeGatewayPriority({
+        gatewayService.changePriority({
           gatewayId: 'non-existent-id',
           priority: 5,
         }),
@@ -139,7 +122,7 @@ test.group('GatewayService', (group) => {
 
     await assert.rejects(
       () =>
-        gatewayService.changeGatewayPriority({
+        gatewayService.changePriority({
           gatewayId: gateway.id,
           priority: 0,
         }),
@@ -154,11 +137,28 @@ test.group('GatewayService', (group) => {
 
     await assert.rejects(
       () =>
-        gatewayService.changeGatewayPriority({
+        gatewayService.changePriority({
           gatewayId: gateway.id,
           priority: -1,
         }),
       NotAllowedException
+    )
+  })
+
+  test('should throw error when priority is already in use', async ({ assert }) => {
+    const gateway = MakeGateway({ priority: 1 })
+    const gateway2 = MakeGateway({ priority: 3 })
+
+    inMemoryGatewayRepository.gateways.push(gateway)
+    inMemoryGatewayRepository.gateways.push(gateway2)
+
+    await assert.rejects(
+      () =>
+        gatewayService.changePriority({
+          gatewayId: gateway2.id,
+          priority: 1,
+        }),
+      `Another gateway already has priority ${1}`
     )
   })
 })
