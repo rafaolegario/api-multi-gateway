@@ -25,20 +25,20 @@ export class PurchaseService {
   ) {}
 
   async purchase(data: PurchaseDTO): Promise<PurchaseResponseDTO> {
-    const { products, cardNumber, cvv } = data
+    const { products, cardNumber, cvv, email, name } = data
 
     this.validateCvvAndCardNumber(cvv, cardNumber)
     const amountInCents = await this.validateAndCalculateProductAmount(products)
 
     const { success, transactionId, errorMessage, gatewayId } = await this.processPayment({
-      name: data.name,
-      email: data.email,
+      name: name,
+      email: email,
       cardNumber,
       cvv,
       amount: amountInCents,
     })
 
-    const client = await this.findOrCreateClient(data.email, data.name)
+    const client = await this.findOrCreateClient(email, name)
 
     await this.transactionRepository.create({
       clientId: client.id,
