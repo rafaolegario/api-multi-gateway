@@ -31,7 +31,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: DockerFile
     container_name: api-multi-gateway-app
     restart: unless-stopped
     ports:

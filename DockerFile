@@ -1,15 +1,26 @@
-FROM node:20-alpine
+FROM node:lts-bookworm-slim AS base
 
+FROM base AS deps
 WORKDIR /app
 
-COPY package*.json ./
+RUN npm install -g pnpm
 
+COPY package*.json pnpm-lock.yaml ./
 RUN pnpm install
 
+FROM deps AS build
+WORKDIR /app
 COPY . .
+RUN node ace build
 
-RUN pnpm run build
+FROM base AS production
+WORKDIR /app
+ENV NODE_ENV=production
+
+RUN npm install -g pnpm
+
+COPY --from=build /app/build ./
+RUN pnpm install --prod
 
 EXPOSE 3333
-
-CMD ["node", "build/server.js"]
+CMD ["node", "bin/server.js"]
