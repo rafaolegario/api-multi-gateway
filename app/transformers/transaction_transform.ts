@@ -1,6 +1,5 @@
 import type Transaction from '#models/transaction'
 import { type AllTrasactions } from '#repositories/contracts/transaction_repository'
-import { fromCents } from '#services/utils/transform_currency'
 import { BaseTransformer } from '@adonisjs/core/transformers'
 
 export default class TransactionTransformer extends BaseTransformer<Transaction> {
@@ -11,7 +10,7 @@ export default class TransactionTransformer extends BaseTransformer<Transaction>
       gatewayId: this.resource.gatewayId,
       externalId: this.resource.externalId,
       status: this.resource.status,
-      amount: fromCents(this.resource.amount),
+      amount: this.resource.amount,
       cardLastNumbers: this.resource.cardLastNumbers,
       reason: this.resource.reason,
       createdAt: this.resource.createdAt,
@@ -24,7 +23,7 @@ export default class TransactionTransformer extends BaseTransformer<Transaction>
       id: resource.id,
       clientId: resource.clientId,
       status: resource.status,
-      amount: fromCents(resource.amount),
+      amount: resource.amount,
       createdAt: resource.createdAt,
       updatedAt: resource.updatedAt,
     }))
