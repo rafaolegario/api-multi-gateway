@@ -1,0 +1,733 @@
+{
+  "info": {
+    "_postman_id": "af7ff69f-51b8-4f18-a884-2a999a0c70b9",
+    "name": "Multi-gateway-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "32845428"
+  },
+  "item": [
+    {
+      "name": "Public",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@betalent.com\",\r\n    \"password\": \"admin123\"\r\n}\r\n\r\n// {\r\n//     \"email\": \"manager@betalent.com\",\r\n//     \"password\": \"manager123\"\r\n// }\r\n\r\n// {\r\n//     \"email\": \"finance@betalent.com\",\r\n//     \"password\": \"finance123\"\r\n// }\r\n\r\n// {\r\n//     \"email\": \"user@betalent.com\",\r\n//     \"password\": \"user1234\"\r\n// }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Purchase",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 10,\r\n  \"name\": \"tester\",\r\n  \"email\": \"tester@email.com\",\r\n  \"cardNumber\": \"5569000000006063\",\r\n  \"cvv\": \"010\",\r\n  \"products\": [{\r\n    \"id\" : \"27e1314f-254b-419b-8a77-d1e0bf7ddaa9\",\r\n    \"quantity\": 2\r\n    },\r\n    {\r\n     \"id\" : \"710fb8a2-5730-4cf1-a79d-6c00a83c7cc9\",\r\n     \"quantity\": 1\r\n    }\r\n  ]\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/purchase",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "purchase"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Private",
+      "item": [
+        {
+          "name": "Gateways",
+          "item": [
+            {
+              "name": "List Gateways",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mg.RGVsUnJlU25FZEdwUFhUQ2NjcVgyOHhudGtuWTZiVVlDY3czMDBFYTQxNTIwMjE4NTY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/gateways?page=1&limit=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Toggle is active",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mg.RGVsUnJlU25FZEdwUFhUQ2NjcVgyOHhudGtuWTZiVVlDY3czMDBFYTQxNTIwMjE4NTY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/gateways/:id/toggle",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways",
+                    ":id",
+                    "toggle"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "02f93f90-2ab2-4def-95c4-373c3669d8ba"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Change gateway priority",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mg.RGVsUnJlU25FZEdwUFhUQ2NjcVgyOHhudGtuWTZiVVlDY3czMDBFYTQxNTIwMjE4NTY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"priority\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/gateways/:id/change-priority",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "gateways",
+                    ":id",
+                    "change-priority"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "02f93f90-2ab2-4def-95c4-373c3669d8ba"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Transactions",
+          "item": [
+            {
+              "name": "List Transactions",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "Get Transaction",
+              "request": {
+                "method": "GET",
+                "header": []
+              },
+              "response": []
+            },
+            {
+              "name": "Refund Transaction",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_OQ.Z3laa3ZoSG5wTTV4RG9DaGlBMlVOODJEVWFYUG9yYWh2dTFIYWY4RDc0OTkwNjE0Nw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"reason\": \"Cliente Solicitou reembolso\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/transactions/:id/refund",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "transactions",
+                    ":id",
+                    "refund"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "453f611c-0ce6-4e48-86b8-fe78cecc8f3d"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Clients",
+          "item": [
+            {
+              "name": "List Clients",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/clients?page=1&limit=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "clients"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Client and Purchases",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mg.RGVsUnJlU25FZEdwUFhUQ2NjcVgyOHhudGtuWTZiVVlDY3czMDBFYTQxNTIwMjE4NTY",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/clients/:id/transactions?page=1&limit=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "clients",
+                    ":id",
+                    "transactions"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "07dc7e9f-3433-4592-9db3-60a542d5cb48"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "item": [
+            {
+              "name": "List Users",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mw.QU9iZnYzREdWTGZpdGZYNldxSXFhUDZTaUFkNjBLQnBSQjQ3RkRXbzM0OTA5ODg0NDM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users?page=1&limit=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "users"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get User",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mw.QU9iZnYzREdWTGZpdGZYNldxSXFhUDZTaUFkNjBLQnBSQjQ3RkRXbzM0OTA5ODg0NDM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "ab38a1bc-8dcf-4414-b276-01063eca9b9d"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create User",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Nw.empOVnZZR21NU3BpaTBjZFNnU0FKT0NrSmlMVGNKQ2cyZjdXeU5ISjYwOTE3NTExNA",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"manager@betalent.com\",\r\n    \"password\": \"manager123\",\r\n    \"role\": \"manager\"\r\n}\r\n\r\n// {\r\n//     \"email\": \"finance@betalent.com\",\r\n//     \"password\": \"finance123\",\r\n//     \"role\": \"finance\"\r\n// }\r\n\r\n// {\r\n//     \"email\": \"user@betalent.com\",\r\n//     \"password\": \"user1234\",\r\n//     \"role\": \"user\"\r\n// }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/users",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update User",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mw.QU9iZnYzREdWTGZpdGZYNldxSXFhUDZTaUFkNjBLQnBSQjQ3RkRXbzM0OTA5ODg0NDM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"manager1@betalent.com\",\r\n    \"password\": \"manager1234\",\r\n    \"role\": \"manager\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/users/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "96d61945-60d3-4eec-8266-0ae61fe4e3e2"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete User",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Ng.THZ3WGUtTkJkMHhDX2xNcDhnYVZJZmc3OFdlTGNJRThqa2hwNzduNzI2ODI3MDQ4",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/users/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "users",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "31901294-ce12-4488-9c91-2ee337b4266e"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "List products",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mw.QU9iZnYzREdWTGZpdGZYNldxSXFhUDZTaUFkNjBLQnBSQjQ3RkRXbzM0OTA5ODg0NDM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/products?page=1&limit=10",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "products"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Products",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_Mw.QU9iZnYzREdWTGZpdGZYNldxSXFhUDZTaUFkNjBLQnBSQjQ3RkRXbzM0OTA5ODg0NDM",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/products/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_OQ.Z3laa3ZoSG5wTTV4RG9DaGlBMlVOODJEVWFYUG9yYWh2dTFIYWY4RDc0OTkwNjE0Nw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Produto Exemplo\",\r\n  \"amount\": 1500\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/products",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_OQ.Z3laa3ZoSG5wTTV4RG9DaGlBMlVOODJEVWFYUG9yYWh2dTFIYWY4RDc0OTkwNjE0Nw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Produto Exemplo alterado\",\r\n  \"amount\": 5500\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/products/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "4c1a2c3c-2b26-4d4f-a850-d17d1e8bf59f"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Product",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "oat_OQ.Z3laa3ZoSG5wTTV4RG9DaGlBMlVOODJEVWFYUG9yYWh2dTFIYWY4RDc0OTkwNjE0Nw",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/products/:id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "4c1a2c3c-2b26-4d4f-a850-d17d1e8bf59f"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
