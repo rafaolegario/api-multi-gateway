@@ -4,12 +4,9 @@ import { faker } from '@faker-js/faker'
 import hash from '@adonisjs/core/services/hash'
 import { randomUUID } from 'node:crypto'
 
-interface MakeUserResult {
-  user: User
-  plainPassword: string
-}
-
-export async function MakeUser(override: Partial<User> = {}): Promise<MakeUserResult> {
+export async function MakeUser(
+  override: Partial<User> = {}
+): Promise<{ user: User; plainPassword: string }> {
   const plainPassword = override.password ?? faker.internet.password()
 
   const user = new User()
