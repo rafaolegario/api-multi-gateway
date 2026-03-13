@@ -1,5 +1,5 @@
 import Client from '#models/client'
-import { type ClientRepository } from '#repositories/contracts/client_repository'
+import { type AllClients, type ClientRepository } from '#repositories/contracts/client_repository'
 import { type PaginatedResult, type PaginationParams } from '../../types/index.ts'
 
 export class LucidClientRepository implements ClientRepository {
@@ -11,9 +11,9 @@ export class LucidClientRepository implements ClientRepository {
     return await Client.query().where('email', email).first()
   }
 
-  async findAll(pagination: PaginationParams): Promise<PaginatedResult<Client>> {
+  async findAll(pagination: PaginationParams): Promise<PaginatedResult<AllClients>> {
     const { page, limit } = pagination
-    const result = await Client.query().paginate(page, limit)
+    const result = await Client.query().select('id', 'name', 'email').paginate(page, limit)
     const data = result.all()
 
     return {

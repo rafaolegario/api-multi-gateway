@@ -1,6 +1,6 @@
 import type Client from '#models/client'
 import { type PaginatedResult, type PaginationParams } from '../../types/pagination_types.ts'
-import { type ClientRepository } from '../contracts/client_repository.ts'
+import { type AllClients, type ClientRepository } from '../contracts/client_repository.ts'
 import { DateTime } from 'luxon'
 import { randomUUID } from 'node:crypto'
 
@@ -15,7 +15,7 @@ export class InMemoryClientRepository implements ClientRepository {
     return this.clients.find((client) => client.email === email) ?? null
   }
 
-  async findAll(pagination: PaginationParams): Promise<PaginatedResult<Client>> {
+  async findAll(pagination: PaginationParams): Promise<PaginatedResult<AllClients>> {
     const { page, limit } = pagination
     const start = (page - 1) * limit
     const end = start + limit
