@@ -118,7 +118,7 @@ POST /auth/login
 }
 ```
 
-`email` - email do usuário
+`email` - email do usuário<br>
 `password` - senha do usuário
 
 Retorna um token de auth
@@ -142,10 +142,10 @@ POST /purchase
 }
 ```
 
-`name` - nome do comprador
-`email` - email do comprador
-`cardNumber` - número do cartão (16 dígitos)
-`cvv` - cvv do cartão
+`name` - nome do comprador<br>
+`email` - email do comprador<br>
+`cardNumber` - número do cartão (16 dígitos)<br>
+`cvv` - cvv do cartão<br>
 `products` - lista de produtos com `id` (UUID do produto) e `quantity` (quantidade)
 
 Retorna uma mensagem de sucesso ou falha
@@ -162,7 +162,7 @@ Todas as rotas privadas requerem o header `Authorization: Bearer <token>`.
 GET /users?page=1&limit=10
 ```
 
-`page` - página atual (mínimo 1)
+`page` - página atual (mínimo 1)<br>
 `limit` - quantidade por página (mínimo 1, máximo 100)
 
 ### Detalhe do usuário
@@ -187,8 +187,8 @@ POST /users
 }
 ```
 
-`email` - email do usuário (máximo 254 caracteres)
-`password` - senha (8-32 caracteres)
+`email` - email do usuário<br>
+`password` - senha<br>
 `role` - papel do usuário (`admin`, `manager`, `finance`, `user`)
 
 ### Atualizar usuário
@@ -205,9 +205,9 @@ PUT /users/:id
 }
 ```
 
-`:id` - UUID do usuário no banco de dados
-`email` - (opcional) email do usuário
-`password` - (opcional) senha (8-32 caracteres)
+`:id` - UUID do usuário no banco de dados<br>
+`email` - (opcional) email do usuário<br>
+`password` - (opcional) senha<br>
 `role` - (opcional) papel do usuário (`admin`, `manager`, `finance`, `user`)
 
 ### Deletar usuário
@@ -228,7 +228,7 @@ DELETE /users/:id
 GET /products?page=1&limit=10
 ```
 
-`page` - página atual (mínimo 1)
+`page` - página atual (mínimo 1)<br>
 `limit` - quantidade por página (mínimo 1, máximo 100)
 
 ### Detalhe do produto
@@ -252,7 +252,7 @@ POST /products
 }
 ```
 
-`name` - nome do produto
+`name` - nome do produto<br>
 `amount` - valor do produto em centavos (mínimo 1)
 
 ### Atualizar produto
@@ -268,8 +268,8 @@ PUT /products/:id
 }
 ```
 
-`:id` - UUID do produto no banco de dados
-`name` - (opcional) nome do produto
+`:id` - UUID do produto no banco de dados<br>
+`name` - (opcional) nome do produto<br>
 `amount` - (opcional) valor do produto em centavos (mínimo 1),
 
 ### Deletar produto
@@ -290,7 +290,7 @@ DELETE /products/:id
 GET /gateways?page=1&limit=10
 ```
 
-`page` - página atual (mínimo 1)
+`page` - página atual (mínimo 1)<br>
 `limit` - quantidade por página (mínimo 1, máximo 100)
 
 ### Ativar ou desativar um gateway
@@ -313,7 +313,7 @@ PATCH /gateways/:id/change-priority
 }
 ```
 
-`:id` - UUID do gateway no banco de dados
+`:id` - UUID do gateway no banco de dados<br>
 `priority` - nova prioridade do gateway (mínimo 1)
 
 ---
@@ -326,7 +326,7 @@ PATCH /gateways/:id/change-priority
 GET /clients?page=1&limit=10
 ```
 
-`page` - página atual (mínimo 1)
+`page` - página atual (mínimo 1)<br>
 `limit` - quantidade por página (mínimo 1, máximo 100)
 
 ### Detalhe do cliente e suas compras com paginação
@@ -335,8 +335,8 @@ GET /clients?page=1&limit=10
 GET /clients/:id/transactions?page=1&limit=10
 ```
 
-`:id` - UUID do cliente no banco de dados
-`page` - página atual (mínimo 1)
+`:id` - UUID do cliente no banco de dados<br>
+`page` - página atual (mínimo 1)<br>
 `limit` - quantidade por página (mínimo 1, máximo 100)
 
 ---
@@ -349,9 +349,9 @@ GET /clients/:id/transactions?page=1&limit=10
 GET /transactions?page=1&limit=10
 ```
 
-`page` - página atual (mínimo 1)
-`limit` - quantidade por página (mínimo 1, máximo 100)
-`gatewayId` - (opcional) UUID do gateway para filtrar
+`page` - página atual (mínimo 1) <br>
+`limit` - quantidade por página (mínimo 1, máximo 100)<br>
+`gatewayId` - (opcional) UUID do gateway para filtrar<br>
 `status` - (opcional) filtrar por status (`successful`, `failed`, `refunded`)
 
 ### Detalhe da transação
@@ -374,7 +374,7 @@ POST /transactions/:id/refund
 }
 ```
 
-`:id` - UUID da transação no banco de dados
+`:id` - UUID da transação no banco de dados<br>
 `reason` - motivo do reembolso (mínimo 3 caracteres)
 
 ## Estratégia de Fallback e Gerenciamento de Gateways
