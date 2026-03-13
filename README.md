@@ -20,7 +20,7 @@ API de pagamentos com suporte a múltiplos gateways, fallback automático por pr
 - **Registry Pattern**
 - **Dependency Injection**
 
-### Estatisticas do desafio
+### Estatísticas do desafio
 
 - **Nivel escolhido: 3**
 - **Rotas implementadas: 20/20**
