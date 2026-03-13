@@ -66,7 +66,6 @@ export class TransactionService {
     const refund = await paymentGateway.refund({
       transactionId: transaction.externalId!,
     })
-    console.log('refund response:', refund)
     if (!refund.success) {
       throw new UnavailabilityServiceException(UNAVAILABILITY_MESSAGE, {
         status: 503,
