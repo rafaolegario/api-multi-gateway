@@ -14,12 +14,11 @@ export default class TransactionsController {
   constructor(private transactionService: TransactionService) {}
 
   async listTransactions({ request }: HttpContext) {
-    const { page, limit, clientId, gatewayId, status } =
-      await request.validateUsing(listTransactionsQuery)
+    const { page, limit, gatewayId, status } = await request.validateUsing(listTransactionsQuery)
 
     const result = await this.transactionService.listTransactions(
       { page, limit },
-      { clientId, gatewayId, status }
+      { gatewayId, status }
     )
 
     return {
