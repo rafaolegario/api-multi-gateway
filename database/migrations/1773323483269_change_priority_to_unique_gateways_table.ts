@@ -5,13 +5,13 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.alterTable(this.tableName, (table) => {
-      table.integer('priority').notNullable().unique()
+      table.unique(['priority'])
     })
   }
 
   async down() {
     this.schema.alterTable(this.tableName, (table) => {
-      table.dropColumn('priority')
+      table.dropUnique(['priority'])
     })
   }
 }
