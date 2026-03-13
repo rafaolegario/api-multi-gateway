@@ -127,4 +127,64 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/clients/client_controller').default['getClientAndTransactions']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'users.list_users': {
+    methods: ["GET","HEAD"]
+    pattern: '/users'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/user_validator').listUsersQuery)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['listUsers']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['listUsers']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'users.get_user': {
+    methods: ["GET","HEAD"]
+    pattern: '/users/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/user_validator').getUserParams)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['getUser']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['getUser']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'users.create_user': {
+    methods: ["POST"]
+    pattern: '/users'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user_validator').createUserBody)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/user_validator').createUserBody)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['createUser']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['createUser']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'users.update_user': {
+    methods: ["PUT"]
+    pattern: '/users/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user_validator').getUserParams)>|InferInput<(typeof import('#validators/user_validator').updateUserBody)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/user_validator').getUserParams)>|InferInput<(typeof import('#validators/user_validator').updateUserBody)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['updateUser']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['updateUser']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'users.delete_user': {
+    methods: ["DELETE"]
+    pattern: '/users/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/user_validator').deleteUserParams)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/user_validator').deleteUserParams)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['deleteUser']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['deleteUser']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

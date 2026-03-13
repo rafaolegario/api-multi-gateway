@@ -22,4 +22,11 @@ export interface ApiDefinition {
     listClients: typeof routes['client.list_clients']
     getClientAndTransactions: typeof routes['client.get_client_and_transactions']
   }
+  users: {
+    listUsers: typeof routes['users.list_users']
+    getUser: typeof routes['users.get_user']
+    createUser: typeof routes['users.create_user']
+    updateUser: typeof routes['users.update_user']
+    deleteUser: typeof routes['users.delete_user']
+  }
 }

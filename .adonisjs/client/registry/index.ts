@@ -66,6 +66,36 @@ const routes = {
     tokens: [{"old":"/clients/:id/transactions","type":0,"val":"clients","end":""},{"old":"/clients/:id/transactions","type":1,"val":"id","end":""},{"old":"/clients/:id/transactions","type":0,"val":"transactions","end":""}],
     types: placeholder as Registry['client.get_client_and_transactions']['types'],
   },
+  'users.list_users': {
+    methods: ["GET","HEAD"],
+    pattern: '/users',
+    tokens: [{"old":"/users","type":0,"val":"users","end":""}],
+    types: placeholder as Registry['users.list_users']['types'],
+  },
+  'users.get_user': {
+    methods: ["GET","HEAD"],
+    pattern: '/users/:id',
+    tokens: [{"old":"/users/:id","type":0,"val":"users","end":""},{"old":"/users/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['users.get_user']['types'],
+  },
+  'users.create_user': {
+    methods: ["POST"],
+    pattern: '/users',
+    tokens: [{"old":"/users","type":0,"val":"users","end":""}],
+    types: placeholder as Registry['users.create_user']['types'],
+  },
+  'users.update_user': {
+    methods: ["PUT"],
+    pattern: '/users/:id',
+    tokens: [{"old":"/users/:id","type":0,"val":"users","end":""},{"old":"/users/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['users.update_user']['types'],
+  },
+  'users.delete_user': {
+    methods: ["DELETE"],
+    pattern: '/users/:id',
+    tokens: [{"old":"/users/:id","type":0,"val":"users","end":""},{"old":"/users/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['users.delete_user']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

@@ -19,4 +19,7 @@ export const controllers = {
   transactions: {
     Transactions: () => import('#controllers/transactions/transactions_controller'),
   },
+  users: {
+    Users: () => import('#controllers/users/users_controller'),
+  },
 }
