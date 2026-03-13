@@ -18,4 +18,8 @@ export interface ApiDefinition {
     getTransaction: typeof routes['transactions.get_transaction']
     refundTransaction: typeof routes['transactions.refund_transaction']
   }
+  client: {
+    listClients: typeof routes['client.list_clients']
+    getClientAndTransactions: typeof routes['client.get_client_and_transactions']
+  }
 }

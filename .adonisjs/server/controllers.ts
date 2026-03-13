@@ -7,6 +7,9 @@ export const controllers = {
   auth: {
     Authenticate: () => import('#controllers/auth/authenticate_controller'),
   },
+  clients: {
+    Client: () => import('#controllers/clients/client_controller'),
+  },
   gateways: {
     Gateways: () => import('#controllers/gateways/gateways_controller'),
   },

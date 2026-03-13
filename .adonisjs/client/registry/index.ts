@@ -54,6 +54,18 @@ const routes = {
     tokens: [{"old":"/transactions/:id/refund","type":0,"val":"transactions","end":""},{"old":"/transactions/:id/refund","type":1,"val":"id","end":""},{"old":"/transactions/:id/refund","type":0,"val":"refund","end":""}],
     types: placeholder as Registry['transactions.refund_transaction']['types'],
   },
+  'client.list_clients': {
+    methods: ["GET","HEAD"],
+    pattern: '/clients',
+    tokens: [{"old":"/clients","type":0,"val":"clients","end":""}],
+    types: placeholder as Registry['client.list_clients']['types'],
+  },
+  'client.get_client_and_transactions': {
+    methods: ["GET","HEAD"],
+    pattern: '/clients/:id/transactions',
+    tokens: [{"old":"/clients/:id/transactions","type":0,"val":"clients","end":""},{"old":"/clients/:id/transactions","type":1,"val":"id","end":""},{"old":"/clients/:id/transactions","type":0,"val":"transactions","end":""}],
+    types: placeholder as Registry['client.get_client_and_transactions']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

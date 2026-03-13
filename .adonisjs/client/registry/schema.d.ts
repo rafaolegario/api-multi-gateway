@@ -103,4 +103,28 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/transactions/transactions_controller').default['refundTransaction']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'client.list_clients': {
+    methods: ["GET","HEAD"]
+    pattern: '/clients'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/client_validator').listClientsQuery)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/clients/client_controller').default['listClients']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/clients/client_controller').default['listClients']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'client.get_client_and_transactions': {
+    methods: ["GET","HEAD"]
+    pattern: '/clients/:id/transactions'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/client_validator').getClientParams)>|InferInput<(typeof import('#validators/client_validator').listClientTransactionsQuery)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/clients/client_controller').default['getClientAndTransactions']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/clients/client_controller').default['getClientAndTransactions']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

@@ -12,6 +12,8 @@ export type ScannedRoutes = {
     'transactions.list_transactions': { paramsTuple?: []; params?: {} }
     'transactions.get_transaction': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'transactions.refund_transaction': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'client.list_clients': { paramsTuple?: []; params?: {} }
+    'client.get_client_and_transactions': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   POST: {
     'authenticate.login': { paramsTuple?: []; params?: {} }
@@ -22,11 +24,15 @@ export type ScannedRoutes = {
     'gateways.list_gateways': { paramsTuple?: []; params?: {} }
     'transactions.list_transactions': { paramsTuple?: []; params?: {} }
     'transactions.get_transaction': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'client.list_clients': { paramsTuple?: []; params?: {} }
+    'client.get_client_and_transactions': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   HEAD: {
     'gateways.list_gateways': { paramsTuple?: []; params?: {} }
     'transactions.list_transactions': { paramsTuple?: []; params?: {} }
     'transactions.get_transaction': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'client.list_clients': { paramsTuple?: []; params?: {} }
+    'client.get_client_and_transactions': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
   PATCH: {
     'gateways.toggle_is_active': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
