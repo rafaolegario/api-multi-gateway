@@ -17,6 +17,7 @@ import { GatewayRegistry } from '../app/payment_gateways/gateway_registry.ts'
 import { GatewayService } from '#services/gateways/gateway_service'
 import { TransactionService } from '#services/transactions/transaction_service'
 import { ClientService } from '#services/clients/client_service'
+import { UserService } from '#services/users/user_service'
 
 //Para fins do teste tecnico injetei tudo aqui, mas o ideal seria criar um provider específico para cada serviço para manter a organização e escalabilidade do projeto.
 export default class DependencyProvider {
@@ -49,6 +50,12 @@ export default class DependencyProvider {
 
     this.app.container.singleton(GatewayRegistry, () => {
       return new GatewayRegistry()
+    })
+
+    this.app.container.singleton(UserService, async () => {
+      const userRepository = await this.app.container.make(UserRepository)
+
+      return new UserService(userRepository)
     })
 
     this.app.container.singleton(GatewayService, async () => {
