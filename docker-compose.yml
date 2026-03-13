@@ -34,8 +34,6 @@ services:
       dockerfile: Dockerfile
     container_name: api-multi-gateway-app
     restart: unless-stopped
-    profiles:
-      - app
     ports:
       - '${PORT:-3333}:3333'
     env_file:
