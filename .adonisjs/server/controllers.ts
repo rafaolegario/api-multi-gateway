@@ -13,6 +13,9 @@ export const controllers = {
   gateways: {
     Gateways: () => import('#controllers/gateways/gateways_controller'),
   },
+  products: {
+    Products: () => import('#controllers/products/products_controller'),
+  },
   purchase: {
     Purchase: () => import('#controllers/purchase/purchase_controller'),
   },

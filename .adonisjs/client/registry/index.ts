@@ -96,6 +96,36 @@ const routes = {
     tokens: [{"old":"/users/:id","type":0,"val":"users","end":""},{"old":"/users/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['users.delete_user']['types'],
   },
+  'products.list_products': {
+    methods: ["GET","HEAD"],
+    pattern: '/products',
+    tokens: [{"old":"/products","type":0,"val":"products","end":""}],
+    types: placeholder as Registry['products.list_products']['types'],
+  },
+  'products.get_product': {
+    methods: ["GET","HEAD"],
+    pattern: '/products/:id',
+    tokens: [{"old":"/products/:id","type":0,"val":"products","end":""},{"old":"/products/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['products.get_product']['types'],
+  },
+  'products.create_product': {
+    methods: ["POST"],
+    pattern: '/products',
+    tokens: [{"old":"/products","type":0,"val":"products","end":""}],
+    types: placeholder as Registry['products.create_product']['types'],
+  },
+  'products.update_product': {
+    methods: ["PUT"],
+    pattern: '/products/:id',
+    tokens: [{"old":"/products/:id","type":0,"val":"products","end":""},{"old":"/products/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['products.update_product']['types'],
+  },
+  'products.delete_product': {
+    methods: ["DELETE"],
+    pattern: '/products/:id',
+    tokens: [{"old":"/products/:id","type":0,"val":"products","end":""},{"old":"/products/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['products.delete_product']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

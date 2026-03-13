@@ -7,6 +7,7 @@
 import type { InferData, InferVariants } from '@adonisjs/core/types/transformers'
 import type ClientTransformTransformer from '#transformers/client_transform'
 import type GatewaysTransformTransformer from '#transformers/gateways_transform'
+import type ProductTransformTransformer from '#transformers/product_transform'
 import type TransactionTransformTransformer from '#transformers/transaction_transform'
 
 export namespace Data {
@@ -17,6 +18,10 @@ export namespace Data {
   export type GatewaysTransform = InferData<GatewaysTransformTransformer>
   export namespace GatewaysTransform {
     export type Variants = InferVariants<GatewaysTransformTransformer>
+  }
+  export type ProductTransform = InferData<ProductTransformTransformer>
+  export namespace ProductTransform {
+    export type Variants = InferVariants<ProductTransformTransformer>
   }
   export type TransactionTransform = InferData<TransactionTransformTransformer>
   export namespace TransactionTransform {

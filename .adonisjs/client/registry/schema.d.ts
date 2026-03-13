@@ -187,4 +187,64 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/users/users_controller').default['deleteUser']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'products.list_products': {
+    methods: ["GET","HEAD"]
+    pattern: '/products'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/product_validator').listProductsQuery)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['listProducts']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['listProducts']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'products.get_product': {
+    methods: ["GET","HEAD"]
+    pattern: '/products/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQueryForGet<InferInput<(typeof import('#validators/product_validator').getProductParams)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['getProduct']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['getProduct']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'products.create_product': {
+    methods: ["POST"]
+    pattern: '/products'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/product_validator').createProductBody)>>
+      paramsTuple: []
+      params: {}
+      query: ExtractQuery<InferInput<(typeof import('#validators/product_validator').createProductBody)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['createProduct']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['createProduct']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'products.update_product': {
+    methods: ["PUT"]
+    pattern: '/products/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/product_validator').getProductParams)>|InferInput<(typeof import('#validators/product_validator').updateProductBody)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/product_validator').getProductParams)>|InferInput<(typeof import('#validators/product_validator').updateProductBody)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['updateProduct']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['updateProduct']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
+  'products.delete_product': {
+    methods: ["DELETE"]
+    pattern: '/products/:id'
+    types: {
+      body: ExtractBody<InferInput<(typeof import('#validators/product_validator').deleteProductParams)>>
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: ExtractQuery<InferInput<(typeof import('#validators/product_validator').deleteProductParams)>>
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['deleteProduct']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/products/products_controller').default['deleteProduct']>>> | { status: 422; response: { errors: SimpleError[] } }
+    }
+  }
 }

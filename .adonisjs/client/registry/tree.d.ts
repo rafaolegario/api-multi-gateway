@@ -29,4 +29,11 @@ export interface ApiDefinition {
     updateUser: typeof routes['users.update_user']
     deleteUser: typeof routes['users.delete_user']
   }
+  products: {
+    listProducts: typeof routes['products.list_products']
+    getProduct: typeof routes['products.get_product']
+    createProduct: typeof routes['products.create_product']
+    updateProduct: typeof routes['products.update_product']
+    deleteProduct: typeof routes['products.delete_product']
+  }
 }
