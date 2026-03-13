@@ -78,7 +78,7 @@ GATEWAY_2_AUTH_SECRET= #Secret Disponibilizado no desafio
 # Subir todos os serviços (MySQL, mock dos gateways e aplicação)
 docker compose up -d
 
-A Aplicação ficara disponivel em http://localhost:3000 #ou porta configurada na .env
+A Aplicação ficará disponivel em http://localhost:3000 #ou porta configurada na .env
 ```
 
 ### Aplicação no rodando
@@ -155,6 +155,10 @@ Retorna uma mensagem de sucesso ou falha
 Todas as rotas privadas requerem o header `Authorization: Bearer <token>`.
 
 #### Usuários (ADMIN, MANAGER)
+
+Obs: Como não foi especificado nenhuma regra especifica para o gerenciamento de roles, deixei dessa forma:<br>
+- Admins podem criar/editar todos, inclusive outros admins
+- Managers podem criar/editar User e Finance, mas não podem criar/editar outros Managers nem Administradores
 
 ### Listar usuários com paginação
 
