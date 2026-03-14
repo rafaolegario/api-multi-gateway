@@ -50,5 +50,26 @@ services:
         condition: service_started
     command: sh -c "node ace migration:run --force && node ace db:seed && node bin/server.js"
 
+  test:
+    build:
+      context: .
+      dockerfile: DockerFile
+      target: test
+    container_name: api-multi-gateway-test
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: test
+      HOST: 0.0.0.0
+      DB_HOST: mysql
+      GATEWAY_1_URL: ${GATEWAY_1_URL}
+      GATEWAY_2_URL: ${GATEWAY_2_URL}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      gateways-mock:
+        condition: service_started
+    command: sh -c "node ace migration:run --force && node ace test"
+
 volumes:
   mysql_data:

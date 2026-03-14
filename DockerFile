@@ -13,6 +13,11 @@ WORKDIR /app
 COPY . .
 RUN node ace build
 
+FROM deps AS test
+WORKDIR /app
+COPY . .
+CMD ["node", "ace", "test"]
+
 FROM base AS production
 WORKDIR /app
 ENV NODE_ENV=production
