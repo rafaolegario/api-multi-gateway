@@ -36,7 +36,7 @@ API de pagamentos com suporte a múltiplos gateways, fallback automático por pr
 
 ```bash
 # Clonar o repositório
-git clone <repo-url>
+git clone https://github.com/rafaolegario/api-multi-gateway.git
 cd api-multi-gateway
 ```
 
