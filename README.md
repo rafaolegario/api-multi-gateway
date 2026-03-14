@@ -30,6 +30,7 @@ API de pagamentos com suporte a múltiplos gateways, fallback automático por pr
 ## Requisitos
 
 - Docker e Docker Compose
+- pnpm ( para ambiente local )
 
 ## Como rodar
 
