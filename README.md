@@ -104,12 +104,6 @@ docker compose run --rm test
 No terminal local dentro do projeto rodar pnpm install
 
 pnpm test
-
-# Rodar apenas testes unitários
-node ace test --suite unit
-
-# Rodar apenas testes funcionais (requer MySQL via docker compose)
-node ace test --suite functional
 ```
 
 Os testes unitários utilizam repositórios in-memory, sem necessidade de banco de dados.
