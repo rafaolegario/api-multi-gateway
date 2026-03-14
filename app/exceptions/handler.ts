@@ -36,6 +36,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * @note You should not attempt to send a response from this method.
    */
   async report(error: unknown, ctx: HttpContext) {
+    if (app.inTest || app.inProduction) return
     return super.report(error, ctx)
   }
 }
