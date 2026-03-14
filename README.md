@@ -25,6 +25,7 @@ API de pagamentos com suporte a múltiplos gateways, fallback automático por pr
 - **Nivel escolhido: 3**
 - **Rotas implementadas: 20/20**
 - **Testes unitários: 70**
+- **Testes funcionais: 14**
 
 ## Requisitos
 
@@ -81,9 +82,9 @@ docker compose up -d
 A Aplicação ficará disponivel em http://localhost:3000 #ou porta configurada na .env
 ```
 
-### Aplicação no rodando
+### Aplicação rodando!
 
-Ao iniciar a aplicação o uma seed é executada no banco de dados criando alguns valores padrões, sendo eles:
+Ao iniciar a aplicação 3 seeds são executadas no banco de dados criando alguns valores padrões, sendo eles:
 
 | Recurso  | Dados                                              |
 | -------- | -------------------------------------------------- |
@@ -94,10 +95,19 @@ Ao iniciar a aplicação o uma seed é executada no banco de dados criando algun
 ### Rodar testes
 
 ```bash
+# Rodar todos os testes (unitários + funcionais)
 pnpm test
+
+# Rodar apenas testes unitários
+node ace test --suite unit
+
+# Rodar apenas testes funcionais (requer MySQL via docker compose)
+node ace test --suite functional
 ```
 
 Os testes unitários utilizam repositórios in-memory, sem necessidade de banco de dados.
+
+Os testes funcionais fazem requisições HTTP reais e utilizam o MySQL, por isso é necessário que os serviços estejam rodando via `docker compose up -d` antes de executá-los.
 
 ## Rotas
 
@@ -157,6 +167,7 @@ Todas as rotas privadas requerem o header `Authorization: Bearer <token>`.
 #### Usuários (ADMIN, MANAGER)
 
 Obs: Como não foi especificado nenhuma regra especifica para o gerenciamento de roles, deixei dessa forma:<br>
+
 - Admins podem criar/editar todos, inclusive outros admins
 - Managers podem criar/editar User e Finance, mas não podem criar/editar outros Managers nem Administradores
 
@@ -286,7 +297,7 @@ DELETE /products/:id
 
 ---
 
-#### Gateways (ADMIN, USER)
+#### Gateways (ADMIN)
 
 ### Listar gateways com paginação
 
