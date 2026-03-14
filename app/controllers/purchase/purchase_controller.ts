@@ -20,7 +20,7 @@ export default class PurchaseController {
     })
 
     if (result.success === false) {
-      return response.badRequest({
+      return response.badGateway({
         message: result.message,
       })
     }
