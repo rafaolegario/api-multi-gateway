@@ -10,4 +10,4 @@ router
     router.patch('/:id/change-priority', [GatewaysController, 'changePriority'])
   })
   .prefix('/gateways')
-  .use([middleware.auth(), middleware.role({ roles: [Roles.ADMIN, Roles.USER] })])
+  .use([middleware.auth(), middleware.role({ roles: [Roles.ADMIN] })])
