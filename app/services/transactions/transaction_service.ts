@@ -7,7 +7,7 @@ import {
 } from '#repositories/contracts/transaction_repository'
 import { NotAllowedException } from '#services/errors/not_allowed_exception'
 import { ResourceNotFoundException } from '#services/errors/resource_not_found_exception'
-import { UnavailabilityServiceException } from '#services/errors/unavaibility_service_exception'
+import { UnavailabilityServiceException } from '#services/errors/unavailability_service_exception'
 import { type GatewayRegistry } from '../../payment_gateways/gateway_registry.ts'
 import { type PaymentGateway } from '../../payment_gateways/payment_gateway_contract.ts'
 import { type PaginationParams } from '../../types/pagination_types.ts'
