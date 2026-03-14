@@ -6,7 +6,7 @@ import { InMemoryProductRepository } from '../../app/repositories/in-memory-test
 import { InMemoryTransactionRepository } from '../../app/repositories/in-memory-test/in_memory_transaction_repository.ts'
 import { MakeProduct } from '#tests/factories/make_product'
 import { GatewayRegistry } from '../../app/payment_gateways/gateway_registry.ts'
-import { UnavailabilityServiceException } from '#services/errors/unavaibility_service_exception'
+import { UnavailabilityServiceException } from '#services/errors/unavailability_service_exception'
 import { MakeGateway } from '#tests/factories/make_gateway'
 import { MakePaymentGateway } from '#tests/factories/make_payment_gateway'
 
