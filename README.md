@@ -41,7 +41,7 @@ cd api-multi-gateway
 
 ```bash
 # Copiar variáveis de ambiente
-cp .env.example .env
+cp || copy .env.example .env
 
 # Padrões geradas pelo Adonis
 TZ=UTC
@@ -93,9 +93,16 @@ Ao iniciar a aplicação 3 seeds são executadas no banco de dados criando algun
 | Gateways | Gateway 1 (prioridade 1), Gateway 2 (prioridade 2) |
 
 ### Rodar testes
-
 ```bash
+
 # Rodar todos os testes (unitários + funcionais)
+
+#Rodar testes no docker
+docker compose run --rm test
+
+# Ou no Local
+No terminal local dentro do projeto rodar pnpm install
+
 pnpm test
 
 # Rodar apenas testes unitários
